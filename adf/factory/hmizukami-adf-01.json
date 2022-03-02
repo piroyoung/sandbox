@@ -1,0 +1,9 @@
+{
+	"name": "hmizukami-adf-01",
+	"location": "japaneast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e2bc745d-a6a7-4e2f-bc0a-17efcb35165e",
+		"tenantId": "c814be5d-ff3f-4376-b43e-f1d0bb086d3d"
+	}
+}

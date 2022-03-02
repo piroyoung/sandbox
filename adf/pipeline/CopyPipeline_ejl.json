@@ -1,0 +1,130 @@
+{
+	"name": "CopyPipeline_ejl",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_ejl",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_ejl",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "vanarsdel/master/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "sql_vanarsdel",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "lake_vanarsdel",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "MSreplication_options"
+						},
+						"destination": {
+							"fileName": "dboMSreplication_options.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "spt_fallback_db"
+						},
+						"destination": {
+							"fileName": "dbospt_fallback_db.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "spt_fallback_dev"
+						},
+						"destination": {
+							"fileName": "dbospt_fallback_dev.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "spt_fallback_usg"
+						},
+						"destination": {
+							"fileName": "dbospt_fallback_usg.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "spt_monitor"
+						},
+						"destination": {
+							"fileName": "dbospt_monitor.csv"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-03-02T11:32:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

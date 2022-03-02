@@ -1,0 +1,120 @@
+{
+	"name": "CopyCloudSales",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_g8p",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_g8p",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "cloud-sales//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "sql_cloudsales",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "lake_cloudsales",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "Addresses"
+						},
+						"destination": {
+							"fileName": "dboAddresses.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "Customers"
+						},
+						"destination": {
+							"fileName": "dboCustomers.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "OrderDetails"
+						},
+						"destination": {
+							"fileName": "dboOrderDetails.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "Orders"
+						},
+						"destination": {
+							"fileName": "dboOrders.txt"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-03-02T09:44:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
