@@ -370,6 +370,9 @@
 					"referenceName": "datalake",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "dwh"
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
