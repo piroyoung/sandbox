@@ -1,0 +1,52 @@
+{
+	"name": "cloudstreaming_transactions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dboTransactions.parquet",
+				"fileSystem": "cloud-streaming"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "TransactionID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CustomerID",
+				"type": "UTF8"
+			},
+			{
+				"name": "MovieID",
+				"type": "UTF8"
+			},
+			{
+				"name": "StreamStart",
+				"type": "INT96"
+			},
+			{
+				"name": "StreamEnd",
+				"type": "INT96"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "DATE"
+			},
+			{
+				"name": "UpdatedDate",
+				"type": "DATE"
+			}
+		]
+	}
+}
