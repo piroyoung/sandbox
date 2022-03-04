@@ -379,7 +379,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"folderPath": "customers",
-						"fileSystem": "dwh"
+						"fileSystem": "dwh2"
 					},
 					"compressionCodec": "snappy"
 				},
