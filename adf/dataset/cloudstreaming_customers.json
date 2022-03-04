@@ -1,0 +1,48 @@
+{
+	"name": "cloudstreaming_customers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dboCustomers.parquet",
+				"fileSystem": "cloud-streaming"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "CustomerID",
+				"type": "UTF8"
+			},
+			{
+				"name": "LastName",
+				"type": "UTF8"
+			},
+			{
+				"name": "FirstName",
+				"type": "UTF8"
+			},
+			{
+				"name": "PhoneNumber",
+				"type": "UTF8"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "DATE"
+			},
+			{
+				"name": "UpdatedDate",
+				"type": "DATE"
+			}
+		]
+	}
+}
