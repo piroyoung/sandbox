@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "hmizukami-adf-01"
+		},
+		"CloudSales_connectionString": {
+			"value": ""
+		},
+		"CloudStream_connectionString": {
+			"value": ""
+		},
+		"FourthCoffeeRentals_password": {
+			"value": ""
+		},
+		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"cosmosdb_southridge_connectionString": {
+			"value": ""
+		},
+		"datalake_accountKey": {
+			"value": ""
+		},
+		"FourthCoffeeRentals_properties_typeProperties_host": {
+			"value": "C:\\Rentals"
+		},
+		"FourthCoffeeRentals_properties_typeProperties_userId": {
+			"value": "southridge"
+		},
+		"datalake_properties_typeProperties_url": {
+			"value": "https://hmizukamisouthridge.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

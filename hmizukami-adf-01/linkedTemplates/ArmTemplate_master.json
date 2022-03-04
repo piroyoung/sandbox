@@ -1,0 +1,125 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "hmizukami-adf-01"
+		},
+		"CloudSales_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CloudSales'"
+		},
+		"CloudStream_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CloudStream'"
+		},
+		"FourthCoffeeRentals_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FourthCoffeeRentals'"
+		},
+		"SqlServer1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
+		},
+		"cosmosdb_southridge_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'cosmosdb_southridge'"
+		},
+		"datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'datalake'"
+		},
+		"FourthCoffeeRentals_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\Rentals"
+		},
+		"FourthCoffeeRentals_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "southridge"
+		},
+		"datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://hmizukamisouthridge.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "hmizukami-adf-01_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"CloudSales_connectionString": {
+						"value": "[parameters('CloudSales_connectionString')]"
+					},
+					"CloudStream_connectionString": {
+						"value": "[parameters('CloudStream_connectionString')]"
+					},
+					"cosmosdb_southridge_connectionString": {
+						"value": "[parameters('cosmosdb_southridge_connectionString')]"
+					},
+					"datalake_accountKey": {
+						"value": "[parameters('datalake_accountKey')]"
+					},
+					"FourthCoffeeRentals_password": {
+						"value": "[parameters('FourthCoffeeRentals_password')]"
+					},
+					"SqlServer1_connectionString": {
+						"value": "[parameters('SqlServer1_connectionString')]"
+					},
+					"datalake_properties_typeProperties_url": {
+						"value": "[parameters('datalake_properties_typeProperties_url')]"
+					},
+					"FourthCoffeeRentals_properties_typeProperties_host": {
+						"value": "[parameters('FourthCoffeeRentals_properties_typeProperties_host')]"
+					},
+					"FourthCoffeeRentals_properties_typeProperties_userId": {
+						"value": "[parameters('FourthCoffeeRentals_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "hmizukami-adf-01_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'hmizukami-adf-01_ArmTemplate_0')]"
+			]
+		}
+	]
+}
