@@ -1,0 +1,19 @@
+{
+	"name": "customers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "dwh"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
