@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 6",
+	"properties": {
+		"content": {
+			"query": "drop table dbo.test;\ndrop table dbo.test1;\n\ndeclare\n    @v1 int = 1,\n    @v2 int = 2;\ncreate table dbo.test1 with (\n    DISTRIBUTION = ROUND_ROBIN\n) as \nwith t as (\n    select @v1 as v\n    union all select @v2 as v\n)\nselect * from t \n\ndeclare\n    @v1 int = 1,\n    @v2 int = 2;\ncreate view dbo.test_view as \nwith t as (\n    select @v1 as v\n    union all select @v2 as v\n)\nselect * from t \n\n\ndeclare @v1 int, @v2 int;\nset @v1 = 1;\nset @v2 = 2;\ncreate view dbo.test_view as \nwith t as (\n    select @v1 as v\n    union all select @v2 as v\n)\nselect * from t;\n\ndeclare\n    @v1 int = 1,\n    @v2 int = 2;\ncreate materialized view dbo.test with (\n    DISTRIBUTION = ROUND_ROBIN\n) as \nwith t as (\n    select @v1 as v\n    union all select @v2 as v\n)\nselect * from t\n\n\ncreate table dbo.#parameters with (\n    DISTRIBUTION = ROUND_ROBIN,\n    HEAP\n) as \nselect\n    1 as v1,\n    2 as v2\n;\nselect\n    MovieID,\n    tier,\n    v1\nfrom dbo.DimMovies, #parameters\nwhere tier >= v2\n\n\n\ncreate table dbo.#parameters with (\n    DISTRIBUTION = ROUND_ROBIN,\n    HEAP\n) as \nselect\n    1 as v1,\n    2 as v2\n;\ncreate view dbo.test_view as\nselect\n    MovieID,\n    tier,\n    v1\nfrom dbo.DimMovies, #parameters\nwhere tier >= v2\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "pool01",
+				"poolName": "pool01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

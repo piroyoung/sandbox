@@ -1,0 +1,139 @@
+{
+	"name": "Facts",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DatalakeOrders",
+						"type": "DatasetReference"
+					},
+					"name": "Orders"
+				},
+				{
+					"dataset": {
+						"referenceName": "DatalakeOrderDetails",
+						"type": "DatasetReference"
+					},
+					"name": "OrderDetails"
+				},
+				{
+					"dataset": {
+						"referenceName": "DatalakeAddresses",
+						"type": "DatasetReference"
+					},
+					"name": "Addresses"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "FactOrders",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "CustomerAddresses"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderID as string,",
+				"          CustomerID as string,",
+				"          OrderDate as date,",
+				"          ShipDate as date,",
+				"          TotalCost as decimal(19,4),",
+				"          CreatedDate as date,",
+				"          UpdatedDate as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Orders",
+				"source(output(",
+				"          OrderDetailID as string,",
+				"          OrderID as string,",
+				"          MovieID as string,",
+				"          Quantity as integer,",
+				"          UnitCost as decimal(19,4),",
+				"          LineNumber as integer,",
+				"          CreatedDate as date,",
+				"          UpdatedDate as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> OrderDetails",
+				"source(output(",
+				"          AddressID as string,",
+				"          CustomerID as string,",
+				"          AddressLine1 as string,",
+				"          AddressLine2 as string,",
+				"          City as string,",
+				"          State as string,",
+				"          ZipCode as string,",
+				"          CreatedDate as date,",
+				"          UpdatedDate as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Addresses",
+				"Addresses select(mapColumn(",
+				"          AddressID,",
+				"          CustomerID",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CustomerAddresses",
+				"Orders, OrderDetails join(Orders@OrderID == OrderDetails@OrderID,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> join1",
+				"join1, CustomerAddresses join(Orders@CustomerID == CustomerAddresses@CustomerID,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> join2",
+				"join2 select(mapColumn(",
+				"          OrderDetailID,",
+				"          OrderID = Orders@OrderID,",
+				"          CustomerID = Orders@CustomerID,",
+				"          MovieID,",
+				"          AddressID,",
+				"          OrderDate,",
+				"          ShipDate,",
+				"          Quantity,",
+				"          UnitCost,",
+				"          OrderCreatedDate = Orders@CreatedDate,",
+				"          OrderUpdatedDate = Orders@UpdatedDate,",
+				"          OrderDetailCreatedDate = OrderDetails@CreatedDate,",
+				"          OrderDetailUpdatedDate = OrderDetails@UpdatedDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "CREATE LOGIN \"handson01-purview\" FROM EXTERNAL PROVIDER\nGO\n\nEXEC sp_addrolemember 'db_datareader', \"handson01-purview\"\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "pool01",
+				"poolName": "pool01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"name": "DimAddresses",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "handson01-WorkspaceDefaultSqlServer",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DBName": "pool01"
+			}
+		},
+		"folder": {
+			"name": "02.dwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DimAddresses"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

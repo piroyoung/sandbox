@@ -1,0 +1,23 @@
+{
+	"name": "FactOrders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "handson01-WorkspaceDefaultSqlServer",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DBName": "pool01"
+			}
+		},
+		"folder": {
+			"name": "02.dwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactOrders"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

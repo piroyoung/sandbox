@@ -1,0 +1,51 @@
+{
+	"name": "SourceOrders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CloudSales",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "00.source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderID",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "CustomerID",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "OrderDate",
+				"type": "date"
+			},
+			{
+				"name": "ShipDate",
+				"type": "date"
+			},
+			{
+				"name": "TotalCost",
+				"type": "money",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "CreatedDate",
+				"type": "date"
+			},
+			{
+				"name": "UpdatedDate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Orders"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,57 @@
+{
+	"name": "SourceOrderDetails",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CloudSales",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "00.source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderDetailID",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "OrderID",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "MovieID",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "Quantity",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "UnitCost",
+				"type": "money",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "LineNumber",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "CreatedDate",
+				"type": "date"
+			},
+			{
+				"name": "UpdatedDate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OrderDetails"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 5",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    [OrderDate],\n    sum([Quantity] * [UnitCost]) as TotalCost\nFROM [dbo].[FactOrders]\ngroup by [OrderDate]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "pool01",
+				"poolName": "pool01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
