@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 7",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [OrderDetailID]\n,[OrderID]\n,[CustomerID]\n,[MovieID]\n,[AddressID]\n,[OrderDate]\n,[ShipDate]\n,[Quantity]\n,[UnitCost]\n,[OrderCreatedDate]\n,[OrderUpdatedDate]\n,[OrderDetailCreatedDate]\n,[OrderDetailUpdatedDate]\n FROM [dbo].[FactOrders]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "pool01",
+				"poolName": "pool01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
